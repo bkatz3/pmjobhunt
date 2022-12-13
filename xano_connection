@@ -1,0 +1,47 @@
+let xanoUrl = new URL('https://x8ki-letl-twmt.n7.xano.io/api:0KSSWAJt/interview_questions/{interview_questions_id}');
+
+function getQuestion() {
+
+    let request = new XMLHttpRequest();
+    let url = xanoUrl.toString();
+
+
+    request.open('GET', url, true)
+    request.onload = function() {
+
+        // Store what we get back from the Xano API as a variable called 'data' and converts it to a javascript object
+        let data = JSON.parse(this.response)
+
+        if (request.status >= 200 && request.status < 400) {
+
+            const cardContainer = document.getElementById("question-block")
+            const firstQuestion = data[0];
+
+            // Create a div called card and style with the "Sample Card" class
+            const style = document.getElementById('question-block')
+            // Copy the card and it's style
+            const card = style.cloneNode(true)
+  
+            card.setAttribute('id', '');
+            card.style.display = 'block';
+            console.log(firstQuestion)
+
+
+            // Create a paragraph and set the text content to the first question's question
+            const p = card.getElementsByTagName('P')[0]
+            p.textContent = `${firstQuestion.question}`
+
+            // Place the card into the div "Cards-Container" 
+            cardContainer.appendChild(card);
+        }
+    }
+    // Send Restaurant request to API
+    request.send();
+}
+
+
+
+// This fires all of the defined functions when the document is "ready" or loaded
+(function() {
+    getQuestion();
+})();
