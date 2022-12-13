@@ -42,6 +42,9 @@ function getQuestion() {
 
 
 // This fires all of the defined functions when the document is "ready" or loaded
-(function() {
+let button = document.getElementById("generate");
+
+// Set the onclick attribute of the button to call the getQuestion() function
+button.onclick = function() {
     getQuestion();
-})();
+}
